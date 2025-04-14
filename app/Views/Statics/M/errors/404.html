@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>404 Page Not Found</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no"/>
+	<link rel="shortcut icon" href="<?=$webImagePath?>/favicon.ico" type="image/x-icon"/>
+	<link rel="stylesheet" href="<?=$webCssPath?>/css.css">
+	<script src="<?=$webJsPath?>/main.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.contain{background: #fff;}
+		.noFound{padding: 1.9rem 0 4.66rem;}
+		.noFound img{display: block;width: 4.29rem;height:auto;margin: auto;}
+		.noFound p{font-size: .22rem;text-align: center;color:#737373;line-height: .64rem;margin: 0 auto;}
+	</style>
+</head>
+<body>
+<?=$this->include('Statics/M/public/nav.html')?>
+
+<div class="blank_10"></div>
+<section class="crumb"><a href="/" target="_blank">Home</a><span>404 page</span></section>
+
+<div class="contain">
+	<div class="noFound">
+		<img src="<?=$webImagePath?>/404bg.png" alt="404">
+		<p>Error，The page you are looking for does not exist！！</p>
+	</div>
+</div>
+
+<?=$this->include('Statics/M/public/footer.html')?>
+
+</body>
+</html>

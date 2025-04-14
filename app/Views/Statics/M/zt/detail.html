@@ -1,0 +1,93 @@
+<?=$this->include('Statics/M/public/header.html')?>
+
+<main class="ztdeWrap">
+    <div class="blank_10"></div>
+    <section class="crumb"><a href="/" title="Home">Home</a><a href="<?=$domain?>subclass/" title="Topic Collection">Topic Collection</a><span>Details</span></section>
+
+    <section class="ztInfo">
+        <div class="img">
+            <img src="<?=$tagInfo['img']?>" alt="<?=$tagInfo['name']?>" />
+            <h1><?=$tagInfo['name']?></h1>
+            <span><em><?=$tagInfo['gamecount']?></em>Styles<i>|</i>Updated On <?=date('Y-m-d H:i:s', $tagInfo['uptime'])?></span>
+        </div>
+        <p><?=$tagInfo['introduce']?></p>
+        <?php if(!empty($relationTagList)){?>
+        <div class="tagRel"><label>Related Tags：</label>
+            <?php foreach($relationTagList as $key=>$val){?>
+            <a href="<?=$val['href']?>" target="_blank"><?=$val['name']?></a>
+            <?php }?>
+        </div>
+        <?php }?>
+    </section>
+
+    <?php if(!empty($editorRecom)){?>
+    <section class="ztGaRec">
+        <div class="laTit"><strong>Manager Recommended</strong></div>
+        <ul>
+            <?php foreach($editorRecom as $key=>$val){?>
+            <li>
+                <a href="<?=$val['a_href']?>" title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <p><?=$val['name']?></p>
+                    <span><?=mt_rand(70,99)/10?></span>
+                </a>
+            </li>
+            <?php }?>
+        </ul>
+    </section>
+    <?php }?>
+
+    <section class="gsEntry">
+        <div class="laTit"><strong>Featured Games</strong><a href="<?=$domain?><?php if($type ==1){echo 'game/';}else{echo 'app/';}?>" title="More">More</a></div>
+        <ul>
+            <?php foreach($tagInfo['gameList'] as $key=>$val){?>
+            <li>
+                <a href="<?=$val['a_href']?>" title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <div>
+                        <p><?=$val['name']?></p>
+                        <span><?=$val['type_info']?></span>
+                        <span><?=date('Y-m-d', $tagInfo['uptime'])?>Updated</span>
+                    </div>
+                    <span>View</span>
+                </a>
+            </li>
+            <?php }?>
+        </ul>
+
+        <?php if(trim($links)){?>
+        <div class="pageWrap">
+            <?=$links?>
+        </div>
+        <?php }?>
+    </section>
+
+    <section class="ztList">
+        <div class="laTit"><strong>Selected Topic</strong><a href="<?=$domain?>subclass/<?php if($type ==1){ echo 'game/';}else{ echo 'app/';}?>" title="More">More</a></div>
+        <ul>
+            <?php foreach($hotZtList as $key=>$val){?>
+            <li>
+                <a href="<?=$val['href']?>" title="<?=$val['name']?>">
+                    <div>
+                        <img src="<?=$val['img']?>" alt="<?=$val['name']?>" />
+                        <span>Updated On <?=date('Y-m-d H:i:s',$val['uptime'])?></span>
+                    </div>
+                    <p><?=$val['name']?></p>
+                    <span><i><?=$val['gamecount']?></i><?php if($val['type'] ==1){echo 'games';}else{echo 'apps';}?> in total</span>
+                </a>
+            </li>
+            <?php }?>
+        </ul>
+
+    </section>
+
+
+</main>
+
+<?=$this->include('Statics/M/public/footer.html')?>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,91 @@
+<?=$this->include('Statics/M/public/header.html')?>
+
+<main class="laDownWrap">
+	<div class="blank_10"></div>
+	<section class="crumb"><a href="/" title="Home">Home</a><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" title="Mobile <?php if($classify ==1){echo 'Game';}else{echo 'App';}?>">Mobile <?php if($classify ==1){echo 'Game';}else{echo 'App';}?></a><span>Download</span></section>
+
+	<section class="apkIntro">
+		<div class="apkInTop">
+			<div>
+                <img src="<?=$gInfo['icon']?>" alt="<?=$gInfo['name']?>">
+				<div>
+                    <h1><?=$gInfo['name']?></h1>
+					<time datetime="<?=date('Y-m-d H:i:s', $gInfo['uptime'])?>"><?=date('Y-m-d H:i:s', $gInfo['uptime'])?>Updated On</time>
+				</div>
+			</div>
+
+            <div class="downBtn downbtn">
+                <?php if($classify ==1){?>
+                <?php if(!empty($gInfo['game_pack']['and_url'])){?>
+                <a href="<?=$gInfo['game_pack']['and_url']?>" rel="nofollow" class="laBtn">Download APK</a>
+                <?php }else{?>
+                <button class="noBtn">No Downloads</button>
+                <p class="oTip"><label>Important Reminder:</label>There are currently no resources available for this game. Interested players can bookmark this page or continue to follow the latest updates on this site</p>
+                <?php }?>
+                <?php }else{?>
+                <?php if(!empty($gInfo['game_pack']['and_url'])){?>
+                <a href="<?=$gInfo['game_pack']['and_url']?>" rel="nofollow" class="laBtn">Download (<?=$gInfo['game_pack']['size_format']?>)</a>
+                <?php }else{?>
+                <button class="noBtn">No Downloads</button>
+                <p class="oTip"><label>Important Reminder:</label>There are currently no resources available for this game. Interested players can bookmark this page or continue to follow the latest updates on this site</p>
+                <?php }?>
+                <?php }?>
+            </div>
+
+		</div>
+	</section>
+
+    <?php if(!empty($gameAboutVersion)) {?>
+	<section class="versionRel">
+		<div class="laTit"><strong>Related Historical Versions</strong></div>
+		<ul>
+            <?php foreach($gameAboutVersion as $k => $val){ ?>
+			<li>
+                <div>
+                    <a href="<?=$val['a_href']?>" title="<?=$val['name']?>"><?=$val['name']?>  <?=$val['and_ver']?></a>
+                    <p><span><?=$val['size_format']?></span><span><?=date('Y-m-d')?>Updated</span></p>
+                </div>
+                <a href="<?=$val['a_href']?>" title="<?=$val['name']?>">Install</a>
+			</li>
+            <?php } ?>
+		</ul>
+	</section>
+    <?php } ?>
+
+    <section class="personRec">
+		<div class="laTit"><strong>Similar <?php if($classify ==1){echo 'Game';}else{echo 'App';}?></strong><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" >More</a></div>
+        <div class="perSlider">
+           	<div class="swiper-wrapper">
+                <?php foreach($aboutGameList as $key=>$val){?>
+            	<a class="swiper-slide" href="<?=$val['a_href']?>"  title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <p><?=$val['name']?></p><span><?=number_format(mt_rand(70,99) /10,1)?></span></a>
+                <?php }?>
+            </div>
+        </div>
+	</section>
+
+    <?php if(!empty($tagsLikeData)){?>
+	<section class="ztList">
+		<div class="laTit"><strong>Related Topics</strong><a href="<?=$domain?>subclass/<?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" title="Related Topics">More</a></div>
+		<ul>
+			<li>
+                <a href="<?=$tagsLikeData['href']?>"  title="<?=$tagsLikeData['name']?>" >
+					<div>
+                        <img src="<?=$tagsLikeData['img']?>" alt="<?=$tagsLikeData['name']?>" />
+						<span>Updated On <?=date('Y-m-d H:i:s',$val['uptime'])?></span>
+					</div>
+                    <p><?=$tagsLikeData['name']?></p>
+                    <span><i><?=$tagsLikeData['gamecount']?></i><?php if($tagsLikeData['type'] ==1){echo 'games';}else{echo 'apps';}?> in total</span>
+				</a>
+			</li>
+		</ul>
+
+	</section>
+    <?php }?>
+
+</main>
+
+<?=$this->include('Statics/M/public/footer.html')?>
+</body>
+</html>

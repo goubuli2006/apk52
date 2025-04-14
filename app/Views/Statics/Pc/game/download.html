@@ -1,0 +1,148 @@
+<?=$this->include('Statics/Pc/public/header.html')?>
+
+<div class="wrap laDownWrap">
+    <section class="crumb"><a href="/" target="_blank">Home</a><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" target="_blank">Mobile <?php if($classify ==1){echo 'Game';}else{echo 'App';}?></a><span>Download</span></section>
+
+    <div class="laMain">
+        <div class="mainL">
+            <section class="apkIntro">
+                <img src="<?=$gInfo['icon']?>" alt="<?=$gInfo['name']?>">
+                <div class="info">
+                    <h1><?=$gInfo['name']?></h1>
+                    <p><span><?=$gInfo['type_name']?></span>|<span><?=$gInfo['game_pack']['and_ver']?></span>|<time><?=date('Y-m-d H:i:s',$gInfo['uptime'])?></time></p>
+                </div>
+
+                <div class="downBtn downbtn">
+                    <?php if($classify ==1){?>
+                        <?php if(!empty($gInfo['game_pack']['and_url'])){?>
+                        <a href="<?=$gInfo['game_pack']['and_url']?>" rel="nofollow" class="laBtn">Download APK</a>
+                        <?php }else{?>
+                        <button class="noBtn">No Downloads</button>
+                        <p class="oTip"><label>Important Reminder:</label>There are currently no resources available for this game. Interested players can bookmark this page or continue to follow the latest updates on this site</p>
+                        <?php }?>
+                    <?php }else{?>
+                        <?php if(!empty($gInfo['game_pack']['and_url'])){?>
+                        <a href="<?=$gInfo['game_pack']['and_url']?>" rel="nofollow" class="laBtn">Download (<?=$gInfo['game_pack']['size_format']?>)</a>
+                        <?php }else{?>
+                        <button class="noBtn">No Downloads</button>
+                        <p class="oTip"><label>Important Reminder:</label>There are currently no resources available for this game. Interested players can bookmark this page or continue to follow the latest updates on this site</p>
+                        <?php }?>
+                    <?php }?>
+                </div>
+            </section>
+
+            <?php if(!empty($gameAboutVersion)) {?>
+            <section class="versionRel">
+                <div class="laTit"><strong>Related Historical Versions</strong><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" target="_blank">More</a></div>
+                <ul>
+                    <?php foreach($gameAboutVersion as $k => $val){ ?>
+                    <li>
+                        <div>
+                            <a href="<?=$val['a_href']?>" title="<?=$val['name']?>"><?=$val['name']?>  <?=$val['and_ver']?></a>
+                            <p><span><?=$val['size_format']?></span><span><?=date('Y')?>Year<?=date('m')?>Month<?=date('d')?>Day</span></p>
+                        </div>
+                        <a href="<?=$val['a_href']?>" title="<?=$val['name']?>">Install</a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </section>
+            <?php } ?>
+
+            <?php if(!empty($aboutGameList)){?>
+            <section class="siftRec">
+                <div class="laTit"><strong>Similar <?php if($classify ==1){echo 'Game';}else{echo 'App';}?></strong><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" target="_blank">More</a></div>
+                <div class="list">
+                    <?php foreach($aboutGameList as $key=>$val){?>
+                    <a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+                        <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                        <p><?=$val['name']?></p><span><?=date('Y-m-d', $val['uptime'])?>Updated</span></a>
+                    <?php }?>
+                </div>
+            </section>
+            <?php } ?>
+
+        </div>
+
+
+
+        <div class="mainR">
+
+            <?php if(!empty($tagsLikeData)){?>
+            <section class="relZt">
+                <div class="laTit"><strong>Related Topics</strong></div>
+                <div class="slider">
+                    <ul>
+                        <li>
+                            <a href="<?=$tagsLikeData['href']?>" target="_blank" title="<?=$tagsLikeData['name']?>" >
+                                <img src="<?=$tagsLikeData['img']?>" alt="<?=$tagsLikeData['name']?>" />
+                                <p><?=$tagsLikeData['name']?></p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <?php }?>
+
+
+            <section class="gameOther">
+                <div class="laTit"><strong>Hot <?php if($classify ==1){echo 'Game';}else{echo 'App';}?></strong><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" target="_blank">More</a></div>
+                <ul>
+                    <?php foreach($downGameList as $key => $val) {?>
+                    <li>
+                        <a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+                            <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                            <div>
+                                <p><?=$val['name']?></p>
+                                <span><?=$val['type_info']?> </span>
+                                <span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+                            </div>
+                            <span>View</span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </section>
+
+            <?php if(!empty($platGameList)){?>
+            <section class="gameOther">
+                <div class="laTit"><strong>Developer Other <?php if($classify ==1){echo 'Game';}else{echo 'App';}?></strong><a href="#" target="_blank">More</a></div>
+                <ul>
+                    <?php foreach ($platGameList as $val){ ?>
+                    <li>
+                        <a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+                            <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                            <div>
+                                <p><?=$val['name']?></p>
+                                <span><?=$val['type_info']?> </span>
+                                <span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+                            </div>
+                            <span>View</span>
+                        </a>
+                    </li>
+                    <?php }?>
+                </ul>
+            </section>
+            <?php }?>
+
+            <section class="hotTags">
+                <div class="laTit"><strong>Popular Tags</strong><a href="<?=$domain?>subclass/<?php if($classify ==1){ echo 'game/';}else{ echo 'app/';}?>" target="_blank">More</a></div>
+                <div class="list">
+                    <?php foreach($hotZtList as $val){?>
+                    <a href="<?=$val['href']?>" target="_blank" title="<?=$val['name']?>"><?=$val['name']?></a>
+                    <?php }?>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+
+</div>
+
+<?=$this->include('Statics/Pc/public/footer.html')?>
+<script src="<?=$webJsPath?>/screenshot.js" type="text/javascript" charset="utf-8"></script>
+<script src="<?=$webJsPath?>/laDetail.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
+
+

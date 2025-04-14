@@ -1,0 +1,306 @@
+<?=$this->include('Statics/M/public/header.html')?>
+
+<main class="ixWrap">
+    <section class="hSlider">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <?php foreach($lbList as $key=>$val){?>
+                    <a class="swiper-slide" href="<?=$val['url']?>"  title="<?=$val['describe']?>">
+                        <img src="<?=$val['img']?>" alt="<?=$val['describe']?>"/><p><?=$val['describe']?></p>
+                    </a>
+                <?php }?>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section class="laTop">
+        <div class="laHotTop">
+            <?php if(!empty($hotSpecial)){?>
+            <a href="<?=$hotSpecial[0]['url']?>" title="SPECIAL">
+                SPECIAL
+                <p>Hot Special<span><?=$hotSpecial[0]['describe']?></span></p>
+                <i class="ico">Selected Recommendations</i>
+            </a>
+            <?php }?>
+            <?php if(!empty($hotNews)){?>
+            <a href="<?=$hotNews[0]['url']?>"  title="NEWS">
+                NEWS
+                <p>Hot News<span><?=$hotNews[0]['describe']?></span></p>
+            </a>
+            <?php }?>
+        </div>
+        <div class="tabBox">
+            <div class="tabMenu"><span class="current">TOP Game</span><span>TOP App</span></div>
+            <div class="tabCont">
+                <div class="subBox">
+                    <div class="sub1Slider">
+                        <div class="swiper-wrapper">
+                            <?php foreach($topGameList as $val){?>
+                            <a class="swiper-slide" href="<?=$val['a_href']?>" title="<?=$val['name']?>">
+                                <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                                <p><?=$val['name']?></p></a>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subBox hide ">
+                    <div class="sub2Slider">
+                        <div class="swiper-wrapper">
+                            <?php foreach($topAppList as $val){?>
+                            <a class="swiper-slide" href="<?=$val['a_href']?>" title="<?=$val['name']?>">
+                                <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                                <p><?=$val['name']?></p></a>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="personRec">
+        <div class="laTitle"><h2>Popular Recommendations</h2></div>
+        <div class="perSlider">
+            <div class="swiper-wrapper">
+                <?php foreach($recomGameList as $val){?>
+                <a class="swiper-slide" href="<?=$val['a_href']?>" title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <p><?=$val['name']?></p></a>
+                <?php }?>
+            </div>
+        </div>
+    </section>
+
+    <section class="recNew">
+        <div class="laTitle"><h2>New Releases</h2><a href="<?=$domain?>game/" title="New Releases">More</a></div>
+        <ul class="swiper-wrapper">
+            <?php foreach ($updateGameList as $val) {?>
+            <li class="swiper-slide">
+                <a class="img" href="<?=$val['url']?>"  title="<?=$val['describe']?>">
+                    <img src="<?=$val['img']?>" alt="<?=$val['describe']?>">
+                </a>
+                <?php if(!empty($val['gameInfo'])){?>
+                <a class="info" href="<?=$val['gameInfo']['a_href']?>"  title="<?=$val['gameInfo']['name']?>">
+                    <img src="<?=$val['gameInfo']['icon']?>" alt="<?=$val['gameInfo']['name']?>">
+                    <div>
+                        <p><?=$val['gameInfo']['name']?></p>
+                        <span><?=date('Y-m-d',$val['gameInfo']['uptime'])?>Updated</span>
+                        <span><?=$val['gameInfo']['comment']?></span>
+                    </div>
+                </a>
+                <?php }?>
+            </li>
+            <?php }?>
+        </ul>
+    </section>
+
+    <section class="allGame">
+        <div class="laTitle"><h2>Game Encyclopedia</h2><a href="<?=$domain?>game/">More</a></div>
+        <ul>
+            <?php foreach($gameNewMobileList as $key => $val){ ?>
+            <li>
+                <a href="<?=$val['a_href']?>"  title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <p><?=$val['name']?></p>
+                </a>
+            </li>
+            <?php } ?>
+        </ul>
+    </section>
+
+    <section class="shareZt">
+        <div class="laTitle"><h2>Special Sharing</h2><a href="<?=$domain?>subclass/game/" >More</a></div>
+        <ul class="swiper-wrapper">
+            <?php foreach($gameZtList as $key => $val) {?>
+            <li class="swiper-slide">
+                <a href="<?=$val['href']?>" title="<?=$val['name']?>">
+                    <img src="<?=$val['img']?>" alt="<?=$val['name']?>">
+                    <div>
+                        <p><?=$val['name']?></p>
+                        <span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+                    </div>
+                    <i>0<?=$key+1?></i>
+                </a>
+            </li>
+            <?php } ?>
+        </ul>
+    </section>
+
+
+    <section class="hotRank tabBox">
+        <div class="laTitle"><h2>Hot Game Ranking</h2> <a href="<?=$domain?>game/" target="_blank" title="Hot Game Ranking">More</a></div>
+        <div class="tabMenu"><span class="current">Popular Free</span><span>Most Anticipated</span><span>Download The Most</span></div>
+        <div class="tabCont">
+            <div class="rk1Slider subBox ">
+                <ol class="swiper-wrapper">
+                    <?php $i=1; foreach($freeGameList as $val){ ?>
+                    <li class="swiper-slide">
+                        <?php foreach($val as $k=>$v){?>
+                        <a href="<?=$v['a_href']?>"  title="<?=$v['name']?>">
+                            <i><?=$i?></i>
+                            <img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+                            <div>
+                                <p><?=$v['name']?></p>
+                                <span><?=$v['type_info']?> </span>
+                                <span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+                            </div>
+                        </a>
+                        <?php $i++;} ?>
+                    </li>
+                    <?php } ?>
+                </ol>
+            </div>
+
+            <div class="rk2Slider subBox hide">
+                <ol class="swiper-wrapper">
+                    <?php $i=1; foreach($expeGameList as $val){ ?>
+                    <li class="swiper-slide">
+                        <?php foreach($val as $k=>$v){?>
+                        <a href="<?=$v['a_href']?>"  title="<?=$v['name']?>">
+                            <i><?=$i?></i>
+                            <img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+                            <div>
+                                <p><?=$v['name']?></p>
+                                <span><?=$v['type_info']?> </span>
+                                <span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+                            </div>
+                        </a>
+                        <?php $i++;} ?>
+                    </li>
+                    <?php } ?>
+
+                </ol>
+            </div>
+
+            <div class="rk3Slider subBox hide">
+                <ol class="swiper-wrapper">
+                    <?php $i=1; foreach($downGameList as $val){ ?>
+                    <li class="swiper-slide">
+                        <?php foreach($val as $k=>$v){?>
+                        <a href="<?=$v['a_href']?>"  title="<?=$v['name']?>">
+                            <i><?=$i?></i>
+                            <img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+                            <div>
+                                <p><?=$v['name']?></p>
+                                <span><?=$v['type_info']?> </span>
+                                <span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+                            </div>
+                        </a>
+                        <?php $i++;} ?>
+                    </li>
+                    <?php } ?>
+
+                </ol>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="allGame">
+        <div class="laTitle"><h2>Apply Amway</h2><a href="<?=$domain?>app/">More</a></div>
+        <ul>
+            <?php foreach($appNewMobileList as $key => $val){ ?>
+            <li>
+                <a href="<?=$val['a_href']?>"  title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <p><?=$val['name']?></p>
+                </a>
+            </li>
+            <?php } ?>
+        </ul>
+    </section>
+
+    <section class="shareZt">
+        <div class="laTitle"><h2>Software Collection</h2><a href="<?=$domain?>subclass/app/" >More</a></div>
+        <ul class="swiper-wrapper">
+            <?php foreach($appZtList as $key => $val) {?>
+            <li class="swiper-slide">
+                <a href="<?=$val['href']?>" title="<?=$val['name']?>">
+                    <img src="<?=$val['img']?>" alt="<?=$val['name']?>">
+                    <div>
+                        <p><?=$val['name']?></p>
+                        <span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+                    </div>
+                    <i>0<?=$key+1?></i>
+                </a>
+            </li>
+            <?php } ?>
+        </ul>
+    </section>
+
+
+    <section class="hotRank tabBox">
+        <div class="laTitle"><h2>Application Ranking</h2> <a href="<?=$domain?>app/" target="_blank" title="Application Ranking">More</a></div>
+        <div class="tabMenu"><span class="current">Popular Free</span><span>Most Anticipated</span><span>Download The Most</span></div>
+        <div class="tabCont">
+            <div class="rk1Slider subBox ">
+                <ol class="swiper-wrapper">
+                    <?php $i=1; foreach($freeAppList as $val){ ?>
+                    <li class="swiper-slide">
+                        <?php foreach($val as $k=>$v){?>
+                        <a href="<?=$v['a_href']?>"  title="<?=$v['name']?>">
+                            <i><?=$i?></i>
+                            <img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+                            <div>
+                                <p><?=$v['name']?></p>
+                                <span><?=$v['type_info']?> </span>
+                                <span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+                            </div>
+                        </a>
+                        <?php $i++;} ?>
+                    </li>
+                    <?php } ?>
+                </ol>
+            </div>
+
+            <div class="rk2Slider subBox hide">
+                <ol class="swiper-wrapper">
+                    <?php $i=1; foreach($expeAppList as $val){ ?>
+                    <li class="swiper-slide">
+                        <?php foreach($val as $k=>$v){?>
+                        <a href="<?=$v['a_href']?>"  title="<?=$v['name']?>">
+                            <i><?=$i?></i>
+                            <img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+                            <div>
+                                <p><?=$v['name']?></p>
+                                <span><?=$v['type_info']?> </span>
+                                <span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+                            </div>
+                        </a>
+                        <?php $i++;} ?>
+                    </li>
+                    <?php } ?>
+                </ol>
+            </div>
+
+            <div class="rk3Slider subBox hide">
+                <ol class="swiper-wrapper">
+                    <?php $i=1; foreach($downAppList as $val){ ?>
+                    <li class="swiper-slide">
+                        <?php foreach($val as $k=>$v){?>
+                        <a href="<?=$v['a_href']?>"  title="<?=$v['name']?>">
+                            <i><?=$i?></i>
+                            <img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+                            <div>
+                                <p><?=$v['name']?></p>
+                                <span><?=$v['type_info']?> </span>
+                                <span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+                            </div>
+                        </a>
+                        <?php $i++;} ?>
+                    </li>
+                    <?php } ?>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<?=$this->include('Statics/M/public/footer.html')?>
+
+</body>
+</html>

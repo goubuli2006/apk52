@@ -1,0 +1,222 @@
+<?=$this->include('Statics/M/public/header.html')?>
+
+<main class="ladeWrap">
+    <div class="blank_10"></div>
+    <section class="crumb"><a href="/" title="Home">Home</a><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" title="Mobile<?php if($classify ==1){echo 'Game';}else{echo 'App';}?>">Mobile<?php if($classify ==1){echo 'Game';}else{echo 'App';}?></a><span>Details</span></section>
+
+    <section class="apkIntro">
+        <div class="apkInTop">
+            <div>
+                <img src="<?=$gInfo['icon']?>" alt="<?=$gInfo['name']?>">
+                <div>
+                    <h1><?=$gInfo['name']?></h1>
+                    <time datetime="<?=date('Y-m-d H:i:s',$gInfo['uptime'])?>"><?=date('Y-m-d H:i:s',$gInfo['uptime'])?>Updated</time>
+                </div>
+            </div>
+            <ul>
+                <li><em><?=$gInfo['star']?></em><p><?=mt_rand(100,10000)?>Evaluation</p></li>
+                <li><span><?=mt_rand(100,10000)?>+</span><p>downloads</p></li>
+                <li><i>16+</i><p>Over 16 years old</p></li>
+            </ul>
+        </div>
+
+        <div class="downBtn downbtn">
+            <a href="<?=$gInfo['downDetail']?>" rel="nofollow" class="laBtn">Download APK</a>
+        </div>
+
+    </section>
+
+
+    <section class="gameCont">
+        <div class="laTit"><strong>Screenshot Preview</strong></div>
+        <div class="showImg"></div>
+
+        <div class="laTit"><strong><?php if($classify ==1){echo 'Game';}else{echo 'App';}?>Introduction</strong></div>
+        <div class="cont" >
+            <?=$gInfo['introduce']?>
+        </div>
+
+        <?php if($gInfo['introduce_log']) {?>
+        <div class="laTit"><strong>Update Information</strong>
+            <?php if($gInfo['history_introduce_log']){?>
+            <span class="rLog">View Historical Logs</span>
+            <?php }?>
+        </div>
+        <div class="rizhi">
+            <?=$gInfo['introduce_log']?>
+        </div>
+        <?php }?>
+
+    </section>
+
+    <section class="fullInfo">
+        <div class="laTit"><strong>Detailed Information</strong></div>
+        <ul>
+            <li>Version number<span><?=$gInfo['game_pack']['and_ver']?></span></li>
+            <li>System Requirements<span>5.0 and up</span></li>
+            <li>Is there a fee<span>Free（In game purchase items）</span></li>
+            <li><?php if($classify ==1){echo 'Game';}else{echo 'App';}?>Size<span><?=$gInfo['game_pack']['size_format']?></span></li>
+            <li><?php if($classify ==1){echo 'Game';}else{echo 'App';}?>Language <span>English</span></li>
+            <li>Publisher<span><?=$gInfo['plat_name']?></span></li>
+            <li>Package Name<span><?=$gInfo['game_pack']['and_pkgname']?></span></li>
+            <li>MD5<span><?=$gInfo['game_pack']['and_md5']?></span></li>
+            <li>Content Rating<span>TeenDiverse Content Discretion Advised</span></li>
+            <li>Privilege<span>19</span></li>
+        </ul>
+
+        <div class="hideImg hide">
+            <div class="img_item">
+                <ul>
+                    <?php if( !empty($gInfo['video_suffix']) ) {?>
+                    <?php if($gInfo['video_suffix'] == 'mp4' || strpos($gInfo['video'], 'aweme.snssdk.com')!==false){ ?>
+                    <li class="gaVideo">
+                        <video id="video" webkit-playsinline="true" playsinline="true" src="<?=$gInfo['video']?>" poster="<?=$gInfo['video_cover']?>" muted="" controls="controls"></video><i class="replay"></i></li>
+                    <?php }} ?>
+                    <?php foreach($gInfo['game_short_img'] as $key => $val){ ?>
+                    <li><img src="<?=$val['path']?>" alt="<?=$gInfo['name']?> screenshot<?=$key+1?>"/></li>
+                    <?php } ?>
+                </ul>
+            </div>
+        </div>
+
+        <div class="hideVideo hide">
+            <div class="tpVideo">
+                <?php if( !empty($gInfo['video_suffix']) ) {?>
+                <?php if($gInfo['video_suffix'] == 'mp4' || strpos($gInfo['video'], 'aweme.snssdk.com')!==false){ ?>
+                <video id="video1" webkit-playsinline="true" playsinline="true"  src="<?=$gInfo['video']?>" poster="<?=$gInfo['video_cover']?>" muted controls="controls" autoplay="autoplay" ></video>
+                <?php }} ?>
+                <i class="replay1 ico hide"></i>
+                <i class="vClose ico"></i>
+            </div>
+        </div>
+
+    </section>
+
+
+    <?php if(!empty($gameAboutVersion)) {?>
+    <section class="versionRel">
+        <div class="laTit"><strong>Related Historical Versions</strong></div>
+        <ul>
+            <?php foreach($gameAboutVersion as $k => $val){ ?>
+            <li>
+                <div>
+                    <a href="<?=$val['a_href']?>" title="<?=$val['name']?>"><?=$val['name']?>  <?=$val['and_ver']?></a>
+                    <p><span><?=$val['size_format']?></span><span><?=date('Y-m-d')?>Updated</span></p>
+                </div>
+                <a href="<?=$val['a_href']?>" title="<?=$val['name']?>">Install</a>
+            </li>
+            <?php } ?>
+        </ul>
+    </section>
+    <?php } ?>
+
+    <?php if(!empty($aboutGameList)){?>
+    <section class="personRec">
+        <div class="laTit"><strong>Similar <?php if($classify ==1){echo 'Game';}else{echo 'App';}?></strong><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" >More</a></div>
+        <div class="perSlider">
+            <div class="swiper-wrapper">
+                <?php foreach($aboutGameList as $key=>$val){?>
+                <a class="swiper-slide" href="<?=$val['a_href']?>"  title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <p><?=$val['name']?></p><span><?=number_format(mt_rand(70,99) /10,1)?></span></a>
+                <?php }?>
+            </div>
+        </div>
+    </section>
+    <?php } ?>
+
+    <?php if(!empty($tagsLikeData)){?>
+    <section class="ztList">
+        <div class="laTit"><strong>Related Topics</strong><a href="<?=$domain?>subclass/<?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" title="Related Topics">More</a></div>
+        <ul>
+            <li>
+                <a href="<?=$tagsLikeData['href']?>" title="<?=$tagsLikeData['name']?>">
+                    <div>
+                        <img src="<?=$tagsLikeData['img']?>" alt="<?=$tagsLikeData['name']?>" />
+                        <span>Updated On <?=date('Y-m-d H:i:s',$val['uptime'])?></span>
+                    </div>
+                    <p><?=$tagsLikeData['name']?></p>
+                    <span><i><?=$tagsLikeData['gamecount']?></i><?php if($tagsLikeData['type'] ==1){echo 'games';}else{echo 'apps';}?> in total</span>
+                </a>
+            </li>
+        </ul>
+
+    </section>
+    <?php } ?>
+
+
+    <section class="personRec">
+        <div class="laTit"><strong><?php if($classify ==1){echo 'Game';}else{echo 'App';}?> Amway</strong><a href="<?=$domain?><?php if($classify ==1){echo 'game/';}else{echo 'app/';}?>" title="<?php if($classify ==1){echo 'Game';}else{echo 'App';}?> Amway">More</a></div>
+        <div class="perSlider">
+            <div class="swiper-wrapper">
+                <?php foreach($goodGameList as $key=>$val){?>
+                <a class="swiper-slide" href="<?=$val['a_href']?>"  title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <p><?=$val['name']?></p><span><?=number_format(mt_rand(70,99) /10,1)?></span></a>
+                <?php }?>
+            </div>
+        </div>
+    </section>
+
+    <section class="gameDeReview">
+        <div class="laTit"><strong>Rating And Evaluation</strong></div>
+        <!-- 我的点评 -->
+
+
+        <!-- 玩家点评 -->
+
+        <div class="markTxt">
+
+        </div>
+
+        <div class="plReviews">
+            <div class="scoreBox">
+                <div class="starScore">
+                    <p class="score"><?=$gInfo['star']?></p>
+                    <div class="scoreWrap"><input type="range" value="<?=$gInfo['star']?>" name="star" min="0" max="10" step="1"></div>
+                    <p class="reviewNum"><?=mt_rand(100,10000)?> Human Evaluation</p>
+                </div>
+
+                <div class="numberR">
+                    <ul>
+                        <li>5星<span class="progressBg"><i class="progressInner" style="width: 85%"></i></span></li>
+                        <li>4星<span class="progressBg"><i class="progressInner" style="width: 55%"></i></span></li>
+                        <li>3星<span class="progressBg"><i class="progressInner" style="width: 40%"></i></span></li>
+                        <li>2星<span class="progressBg"><i class="progressInner" style="width: 15%"></i></span></li>
+                        <li>1星<span class="progressBg"><i class="progressInner" style="width: 25%"></i></span></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div>
+
+
+            </div>
+            <!--<div class="moreMark">加载全部评论</div>-->
+        </div>
+
+    </section>
+
+    <div class="gLog hide">
+        <div class="logBox">
+            <div class="lClose"><i class="ico"></i></div>
+            <div class="lTitle"><p>Historical Updates↓</p></div>
+            <div class="logMain">
+                <?=$gInfo['history_introduce_log']?>
+            </div>
+            <!--<div class="lSure">确定</div>-->
+        </div>
+    </div>
+
+
+
+</main>
+
+<?=$this->include('Statics/M/public/footer.html')?>
+
+<script src="<?=$webJsPath?>/photoswipe.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<?=$webJsPath?>/photoswipe-ui-default.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="<?=$webJsPath?>/laDetail.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>

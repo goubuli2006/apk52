@@ -1,0 +1,67 @@
+<?=$this->include('Statics/Pc/public/header.html')?>
+
+<div class="wrap ztWrap">
+	<section class="crumb"><a href="/" target="_blank">Home</a><span>Topic Collection</span></section>
+
+	<section class="ztTop">
+		<div class="news_box">
+			<?php foreach($hotZtList as $key=>$val){?>
+			<a class="news_item <?php if($key==0) echo 'cur';?> " href="<?=$val['href']?>" title="<?=$val['name']?>"  >
+				<div class="news_pic">
+					<span class="jc_pic" ><img src="<?=$val['img']?>" alt="<?=$val['name']?>"></span>
+					<img class="big_pic" src="<?=$val['img']?>" alt="<?=$val['name']?>" >
+					<p class="jc_tit"><span><?=$val['name']?></span><em><?=date('Y-m-d',$val['uptime'])?>Updated</em></p>
+					<?php if($key==0){?> <i>HOT</i> <?php }?>
+				</div>
+			</a>
+			<?php }?>
+		</div>
+	</section>
+
+	<div class="blank_10"></div>
+
+	<section class="ztList">
+		<div class="laMenu">
+			<div>
+				<a <?php if(empty($current_type)){ echo 'class="current"';}?> href="<?=$domain?>subclass/" title="All Collections">All Collections</a>
+				<a <?php if($current_type == 'game'){ echo 'class="current"';}?> href="<?=$domain?>subclass/game/" title="Game Topic">Game Topic</a>
+				<a <?php if($current_type == 'app'){ echo 'class="current"';}?> href="<?=$domain?>subclass/app/" title="App Topic">App Topic</a>
+			</div>
+		</div>
+
+		<ul>
+			<?php foreach($tagsLists as $val){?>
+			<li>
+				<a class="img" href="<?=$val['href']?>" target="_blank" title="<?=$val['name']?>">
+					<img src="<?=$val['img']?>" alt="<?=$val['name']?>">
+					<i><?=$val['gamecount']?>Styles</i>
+				</a>
+				<a class="info" href="<?=$val['href']?>" target="_blank" title="<?=$val['name']?>">
+					<p><?=$val['name']?></p>
+					<span>Updated On <?=date('Y-m-d H:i:s',$val['uptime'])?></span>
+				</a>
+				<div class="list">
+					<?php if(!empty($val['gameList'])){?>
+					<?php foreach($val['gameList'] as $v){?>
+					<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+						<img src="<?=$v['icon']?>" alt="<?=$v['name']?>"><p><?=$v['name']?></p><span>View</span></a>
+					<?php }?>
+					<?php }?>
+				</div>
+			</li>
+			<?php }?>
+		</ul>
+
+		<div class="pagecode">
+			<?=$links?>
+		</div>
+	</section>
+
+
+
+</div>
+
+<?=$this->include('Statics/Pc/public/footer.html')?>
+
+</body>
+</html>

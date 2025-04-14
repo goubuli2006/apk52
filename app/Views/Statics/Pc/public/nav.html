@@ -1,0 +1,15 @@
+<header>
+  <div>
+    <a href="/" target="_self"><img src="<?=$webImagePath?>/logo.png" alt="apk4399.com"></a>
+    <nav>
+      <a <?php if($nav == 1){ echo 'class="current"';}?> href="<?=$domain?>">Home</a>
+      <a <?php if($nav == 2 || $nav == 2.1){ echo 'class="current"';}?> href="<?=$domain?>game/">Game</a>
+      <a <?php if($nav == 3 || $nav == 3.1){ echo 'class="current"';}?> href="<?=$domain?>app/">App</a>
+      <a <?php if($nav == 5 || $nav == 5.1){ echo 'class="current"';}?> href="<?=$domain?>subclass/">Special </a>
+    </nav>
+
+    <div class="user"><a class="login" href="javascript:openLogin(RW);">Login</a><a class="register" href="javascript:openLogin(RW);">Register</a></div>
+    <div class="searchBtn "><input type="text" placeholder="A fun game"/></div>
+
+  </div>
+</header>

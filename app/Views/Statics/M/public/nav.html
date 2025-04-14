@@ -1,0 +1,21 @@
+<header>
+    <a class="logo" href="/" title="APK4399"><img src="<?=$webImagePath?>/logo.png" alt="APK4399"></a>
+    <a class="searchBtn" href="#"></a>
+    <i class="ico headNav"></i>
+    <div class="hideNav hide">
+        <ul class="hNav">
+            <li><a href="<?=$domain?>">Home</a></li>
+            <li><a href="<?=$domain?>game/">Game</a></li>
+            <li><a href="<?=$domain?>app/">App</a></li>
+            <li><a href="<?=$domain?>subclass/">Special</a></li>
+        </ul>
+    </div>
+</header>
+<nav>
+    <div>
+        <a <?php if($nav == 1){ echo 'class="current"';}?> href="<?=$domain?>">Home</a>
+        <a <?php if($nav == 2 || $nav == 2.1){ echo 'class="current"';}?> href="<?=$domain?>game/">Game</a>
+        <a <?php if($nav == 3 || $nav == 3.1){ echo 'class="current"';}?> href="<?=$domain?>app/">App</a>
+        <a <?php if($nav == 5 || $nav == 5.1){ echo 'class="current"';}?> href="<?=$domain?>subclass/">Special </a>
+    </div>
+</nav>

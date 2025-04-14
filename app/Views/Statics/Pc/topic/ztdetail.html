@@ -1,0 +1,68 @@
+<?=$this->include('Statics/Pc/public/header.html')?>
+
+<div class="blank_9"></div>
+<div class="wrap ztdeWrap">
+
+	<section class="crumb"><a href="/" target="_blank">Home</a><a href="<?=$domain?>subclass/" target="_blank">Topic Collection</a><span>Details</span></section>
+
+	<section class="ztInfo">
+		<div class="img"><img src="<?=$tagInfo['img']?>" alt="<?=$tagInfo['name']?>" /></div>
+		<div class="info">
+			<h1><?=$tagInfo['name']?></h1>
+			<span><?=$tagInfo['gamecount']?> Styles<i>|</i><?=date('Y-m-d H:i', $tagInfo['uptime'])?>Updated</span>
+			<p><?=$tagInfo['introduce']?></p>
+			<?php if(!empty($relationTagList)){?>
+			<div>
+				<label>Related Tags：</label>
+				<?php foreach($relationTagList as $key=>$val){?>
+				<a href="<?=$val['href']?>" target="_blank"><?=$val['name']?></a>
+				<?php }?>
+			</div>
+			<?php }?>
+		</div>
+	</section>
+
+	<section class="ztDeList">
+		<div class="laTit"><strong>Whole<?php if($type ==1){ echo 'Game';}else{ echo 'App';}?></strong></div>
+
+		<ul>
+			<?php foreach($tagInfo['gameList'] as $key=>$val){?>
+			<li>
+				<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+					<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+					<div>
+						<p><?=$val['name']?></p>
+						<span><?=$val['type_info']?></span>
+						<span><?=date('Y-m-d', $tagInfo['uptime'])?>Updated</span>
+					</div>
+					<i><?=$val['star']?></i>
+				</a>
+			</li>
+			<?php }?>
+		</ul>
+		<div class="pagecode">
+			<?=$links?>
+		</div>
+	</section>
+
+
+	<section class="ztRec">
+		<div class="laTit"><strong>Recommend To You</strong><a href="<?=$domain?>subclass/<?php if($type ==1){ echo 'game/';}else{ echo 'app/';}?>" target="_blank">More</a></div>
+		<ul>
+			<?php foreach($hotZtList as $key=>$val){?>
+			<li>
+				<a href="<?=$val['href']?>" target="_blank" title="<?=$val['name']?>" >
+					<img src="<?=$val['img']?>" alt="<?=$val['name']?>" />
+					<div><p><?=$val['name']?></p><span><?=date('Y-m-d',$val['uptime'])?>Updated</span></div>
+				</a>
+			</li>
+			<?php }?>
+		</ul>
+	</section>
+
+</div>
+
+<?=$this->include('Statics/Pc/public/footer.html')?>
+
+</body>
+</html>

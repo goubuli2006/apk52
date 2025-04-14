@@ -1,0 +1,84 @@
+<?=$this->include('Statics/M/public/header.html')?>
+
+<main>
+    <div class="blank_10"></div>
+    <section class="crumb"><a href="/" title="Home">Home</a><span>Application Software</span></section>
+    <section class="gameTop">
+        <div class="caroSlider">
+            <ul class="swiper-wrapper">
+                <?php foreach($gameZtList as $key => $val) {?>
+                <li class="swiper-slide">
+                    <a  href="<?=$val['href']?>" title="<?=$val['name']?>"  >
+                        <img src="<?=$val['img']?>" alt="<?=$val['name']?>">
+                        <p><?=$val['name']?></p>
+                        <span>View</span>
+                        <?php if($key==0){?><i>NEW</i> <?php } ?>
+                    </a>
+                </li>
+                <?php } ?>
+            </ul>
+        </div>
+
+        <div class="featGame">
+            <div class="laTit"><strong>Recommended Selected Applications</strong></div>
+            <div class="featSlider">
+                <ol class="swiper-wrapper">
+                    <?php foreach($downGameList as $val){ ?>
+                    <li class="swiper-slide">
+                        <?php foreach($val as $k=>$v){?>
+                        <a href="<?=$v['a_href']?>"  title="<?=$v['name']?>">
+                            <img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+                            <div>
+                                <p><?=$v['name']?></p>
+                                <span><?=$v['type_info']?> </span>
+                                <span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+                            </div>
+                        </a>
+                        <?php } ?>
+                    </li>
+                    <?php } ?>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="gsTag">
+        <a <?php if (!$current_type){echo "class='current'";}?> href="<?=$domain?>game/">Classify All</a>
+        <?php foreach($categoryList as $key=>$val){?>
+        <a <?php if ($current_type == $val['catalog']){echo "class='current'";}?> href="<?=$domain?>app/app_<?=$val['catalog']?>/"><?=$val['name']?></a>
+        <?php }?>
+        <span class="openTag">Expand All+</span>
+        <span class="putTag">Put Everything All-</span>
+    </section>
+
+    <section class="gsEntry">
+        <ul>
+            <?php foreach($list as $val){?>
+            <li>
+                <a href="<?=$val['a_href']?>"  title="<?=$val['name']?>">
+                    <img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+                    <div>
+                        <p><?=$val['name']?></p>
+                        <span><?=$val['type_info']?></span>
+                        <span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+                    </div>
+                    <span>View</span>
+                </a>
+            </li>
+            <?php }?>
+        </ul>
+
+        <?php if(trim($links)){?>
+        <div class="pageWrap">
+            <?=$links?>
+        </div>
+        <?php }?>
+    </section>
+
+
+</main>
+
+<?=$this->include('Statics/M/public/footer.html')?>
+</body>
+</html>

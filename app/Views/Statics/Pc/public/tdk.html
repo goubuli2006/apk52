@@ -1,0 +1,34 @@
+    <?php if(isset($tdk_detail) && $tdk_detail ==1){?>
+<title><?=$tdk['title']?> - <?=$domainName?></title>
+    <?php }else{?>
+<title><?=$tdk['title']?></title>
+    <?php }?>
+<meta name="keywords" content="<?=$tdk['keywords']?>"/>
+    <meta name="description" content="<?=$tdk['description']?>"/>
+    <?php if(isset($tdk_detail) && $tdk_detail ==1){?>
+<meta name="twitter:title" content="<?=$tdk['title']?> - <?=$domainName?>">
+    <?php }else{?>
+<meta name="twitter:title" content="<?=$tdk['title']?>">
+    <?php }?>
+<meta name="twitter:description" content="<?=$tdk['description']?>">
+    <meta name="twitter:url" content="<?=$domain?>" />
+    <meta name="twitter:site" content="<?=$domain?>" />
+    <?php if(isset($tdk_detail) && $tdk_detail ==1){?>
+<meta property="og:title" content="<?=$tdk['title']?> - <?=$domainName?>">
+    <?php }else{?>
+<meta property="og:title" content="<?=$tdk['title']?>">
+    <?php }?>
+<meta property="og:description" content="<?=$tdk['description']?>"/>
+    <meta property="og:url" content="<?=$domain?>" />
+    <meta property="og:site_name" content="<?=$domainName?>" />
+    <meta property="og:type" content="website">
+    <link rel="alternate" hreflang="en" href="<?=$domain?>">
+    <link rel="alternate" hreflang="es" href="<?=$domain?>">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "name": "<?=$domainName?>",
+            "description": "<?=$tdk['description']?>",
+            "url": "<?=$domain?>"
+        }
+    </script>

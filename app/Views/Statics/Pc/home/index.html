@@ -1,0 +1,374 @@
+<?=$this->include('Statics/Pc/public/header.html')?>
+
+<div class="wrap ixWrap">
+	<section class="laTop">
+		<div class="hSlider">
+			<div class="hSImg">
+				<ul>
+					<?php foreach($lbList as $key=>$val){?>
+					<li>
+						<a href="<?=$val['url']?>" target="_blank" title="<?=$val['describe']?>">
+							<img src="<?=$val['img']?>" alt="<?=$val['describe']?>"/><p><?=$val['describe']?></p>
+						</a>
+					</li>
+					<?php }?>
+				</ul>
+			</div>
+			<div class="hDot"><ul></ul></div>
+		</div>
+
+		<div class="laTopR">
+			<div class="laTopRT">
+				<?php if(!empty($hotSpecial)){?>
+				<a href="<?=$hotSpecial[0]['url']?>" target="_blank" title="SPECIAL">
+					SPECIAL
+					<p>Hot Special<span><?=$hotSpecial[0]['describe']?></span></p>
+					<i class="ico">Selected Recommendations</i>
+				</a>
+				<?php }?>
+
+				<?php if(!empty($hotNews)){?>
+				<a href="<?=$hotNews[0]['url']?>" target="_blank" title="NEWS">
+					NEWS
+					<p>Hot News<span><?=$hotNews[0]['describe']?></span></p>
+				</a>
+				<?php }?>
+			</div>
+			<div class="tab_box">
+				<div class="tab_menu"><span class="current">TOP Game</span><span>TOP App</span></div>
+				<div class="tab_cont">
+					<div class="subS1 sub_box ">
+						<i class="ico tab_l"></i>
+						<i class="ico tab_r"></i>
+						<div class="subSlider">
+							<div>
+								<?php foreach($topGameList as $val){?>
+								<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+									<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+									<p><?=$val['name']?></p></a>
+								<?php }?>
+							</div>
+						</div>
+					</div>
+
+					<div class="subS2 sub_box hide ">
+						<i class="ico tab_l"></i>
+						<i class="ico tab_r"></i>
+						<div class="subSlider">
+							<div>
+								<?php foreach($topAppList as $val){?>
+								<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+									<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+									<p><?=$val['name']?></p></a>
+								<?php }?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="personRec">
+		<div class="laTitle"><h2>Popular Recommendations</h2></div>
+		<div class="sub_box ">
+			<i class="ico tab_l"></i>
+			<i class="ico tab_r"></i>
+			<div class="subSlider">
+				<div>
+					<?php foreach($recomGameList as $val){?>
+					<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+						<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+						<p><?=$val['name']?></p><span><?=date('Y-m-d',$val['uptime'])?>Updated</span></a>
+					<?php }?>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="reNew">
+		<div>
+			<div class="laTitle"><h2>New Releases</h2><a href="<?=$domain?>game/" target="_blank" title="New Releases">More</a></div>
+			<ul>
+				<?php foreach ($updateGameList as $val) {?>
+				<li>
+					<a class="img" href="<?=$val['url']?>" target="_blank" title="<?=$val['describe']?>">
+						<img src="<?=$val['img']?>" alt="<?=$val['describe']?>">
+					</a>
+					<?php if(!empty($val['gameInfo'])){?>
+					<a class="info" href="<?=$val['gameInfo']['a_href']?>" target="_blank" title="<?=$val['gameInfo']['name']?>">
+						<img src="<?=$val['gameInfo']['icon']?>" alt="<?=$val['gameInfo']['name']?>">
+						<div>
+							<p><?=$val['gameInfo']['name']?></p>
+							<span><?=date('Y-m-d',$val['gameInfo']['uptime'])?>Updated</span>
+							<span><?=$val['gameInfo']['comment']?></span>
+						</div>
+					</a>
+					<?php }?>
+				</li>
+				<?php }?>
+			</ul>
+		</div>
+	</section>
+
+
+	<section class="allGame">
+		<div class="laTitle"><h2>Game Encyclopedia</h2> <a href="<?=$domain?>game/" target="_blank" title="Game Encyclopedia">More</a></div>
+		<div class="allGTab">
+			<div class="allGMenu">
+				<div>
+					<span class="current">Recommendation</span>
+					<?php foreach($gameNewMobileTypeLists as $key => $val){ ?>
+					<span><?=$key?></span>
+					<?php } ?>
+				</div>
+			</div>
+			<div class="allGCont">
+				<div>
+					<?php foreach($gameNewMobileList as $key => $val){ ?>
+					<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+						<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+						<p><?=$val['name']?></p>
+						<p><?=date('Y-m-d',$val['uptime'])?>Updated</p>
+					</a>
+					<?php } ?>
+				</div>
+				<?php foreach($gameNewMobileTypeLists as $val){ ?>
+				<div class="hide">
+					<?php if (!empty($val)) { ?>
+					<?php foreach($val as $v){ ?>
+					<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+						<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+						<p><?=$v['name']?></p>
+						<p><?=date('Y-m-d',$v['uptime'])?>Updated</p>
+					</a>
+					<?php }} ?>
+				</div>
+				<?php } ?>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="hTopic">
+		<div class="laTitle"><h2>Special Sharing</h2> <a href="<?=$domain?>subclass/game/" target="_blank" title="Special Sharing">More</a></div>
+
+		<div class="news_box">
+			<?php foreach($gameZtList as $key => $val) {?>
+			<a class="news_item <?php if($key==3) echo 'cur';?>" href="<?=$val['href']?>" title="<?=$val['name']?>"  >
+				<div class="news_pic">
+					<span class="jc_pic" ><img src="<?=$val['img']?>" alt="<?=$val['name']?>"></span>
+					<img class="big_pic" src="<?=$val['img']?>" alt="<?=$val['name']?>" >
+					<p class="jc_tit"><span><?=$val['name']?></span><em><?=date('Y-m-d',$val['uptime'])?>Updated</em></p>
+					<i>0<?=$key+1?></i>
+				</div>
+			</a>
+			<?php } ?>
+		</div>
+	</section>
+
+	<section class="hotRank">
+		<div class="laTitle"><h2>Hot Game Ranking</h2> <a href="<?=$domain?>game/" target="_blank" title="Hot Game Ranking">More</a></div>
+		<div class="hRMenu"><span class="current">Popular Free</span><span>Most Anticipated</span><span>Download The Most</span></div>
+		<div class="hRCont">
+			<div class="hRList">
+				<?php $i=1; foreach($freeGameList as $val){ ?>
+				<ol>
+					<?php foreach($val as $k=>$v){?>
+					<li>
+						<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+							<i><?=$i?></i>
+							<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+							<div>
+								<p><?=$v['name']?></p>
+								<span><?=$v['type_info']?> </span>
+								<span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+							</div>
+							<span>View</span>
+						</a>
+					</li>
+					<?php $i++;}?>
+				</ol>
+				<?php }?>
+			</div>
+
+			<div class="hRList hide">
+				<?php $i=1; foreach($expeGameList as $val){ ?>
+				<ol>
+					<?php foreach($val as $k=>$v){?>
+					<li>
+						<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+							<i><?=$i?></i>
+							<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+							<div>
+								<p><?=$v['name']?></p>
+								<span><?=$v['type_info']?> </span>
+								<span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+							</div>
+							<span>View</span>
+						</a>
+					</li>
+					<?php $i++;}?>
+				</ol>
+				<?php }?>
+			</div>
+
+			<div class="hRList hide">
+				<?php $i=1; foreach($downGameList as $val){ ?>
+				<ol>
+					<?php foreach($val as $k=>$v){?>
+					<li>
+						<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+							<i><?=$i?></i>
+							<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+							<div>
+								<p><?=$v['name']?></p>
+								<span><?=$v['type_info']?> </span>
+								<span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+							</div>
+							<span>View</span>
+						</a>
+					</li>
+					<?php $i++;}?>
+				</ol>
+				<?php }?>
+			</div>
+
+		</div>
+	</section>
+
+
+	<section class="allGame allSoft">
+		<div class="laTitle"><h2>Apply Amway</h2> <a href="<?=$domain?>app/" target="_blank" title="Apply Amway">More</a></div>
+		<div class="allGTab">
+			<div class="allGMenu allSMenu">
+				<div>
+					<span  class="current">Recommendation</span>
+					<?php foreach($appNewMobileTypeLists as $key => $val){ ?>
+					<span><?=$key?></span>
+					<?php } ?>
+				</div>
+			</div>
+			<div class="allGCont">
+				<div>
+					<?php foreach($appNewMobileList as $key => $val){ ?>
+					<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+						<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+						<p><?=$val['name']?></p>
+						<p><?=date('Y-m-d',$val['uptime'])?>Updated</p>
+					</a>
+					<?php } ?>
+				</div>
+				<?php foreach($appNewMobileTypeLists as $val){ ?>
+				<div class="hide">
+					<?php if (!empty($val)) { ?>
+					<?php foreach($val as $v){ ?>
+					<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+						<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+						<p><?=$v['name']?></p>
+						<p><?=date('Y-m-d',$v['uptime'])?>Updated</p>
+					</a>
+					<?php }} ?>
+				</div>
+				<?php } ?>
+			</div>
+		</div>
+
+	</section>
+
+
+	<section class="hTopic">
+
+		<div class="laTitle"><h2>Software Collection</h2> <a href="<?=$domain?>subclass/rj" target="_blank" title="Software Collection">More</a></div>
+
+		<div class="news_box">
+			<?php foreach($appZtList as $key => $val) {?>
+			<a class="news_item <?php if($key==3) echo 'cur';?>" href="<?=$val['href']?>" title="<?=$val['name']?>"  >
+				<div class="news_pic">
+					<span class="jc_pic" ><img src="<?=$val['img']?>" alt="<?=$val['name']?>"></span>
+					<img class="big_pic" src="<?=$val['img']?>" alt="<?=$val['name']?>" >
+					<p class="jc_tit"><span><?=$val['name']?></span><em><?=date('Y-m-d',$val['uptime'])?>Updated</em></p>
+					<i>0<?=$key+1?></i>
+				</div>
+			</a>
+			<?php } ?>
+		</div>
+	</section>
+
+	<section class="hotRank hotSRank">
+		<div class="laTitle"><h2>Application Ranking</h2> <a href="<?=$domain?>app/" target="_blank" title="Application Ranking">More</a></div>
+		<div class="hRMenu"><span class="current">Popular Free</span><span>Most Anticipated</span><span>Download The Most</span></div>
+		<div class="hRCont">
+			<div class="hRList">
+				<?php $i=1; foreach($freeAppList as $val){ ?>
+				<ol>
+					<?php foreach($val as $k=>$v){?>
+					<li>
+						<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+							<i><?=$i?></i>
+							<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+							<div>
+								<p><?=$v['name']?></p>
+								<span><?=$v['type_info']?> </span>
+								<span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+							</div>
+							<span>View</span>
+						</a>
+					</li>
+					<?php $i++;}?>
+				</ol>
+				<?php }?>
+			</div>
+
+			<div class="hRList hide">
+				<?php $i=1; foreach($expeAppList as $val){ ?>
+				<ol>
+					<?php foreach($val as $k=>$v){?>
+					<li>
+						<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+							<i><?=$i?></i>
+							<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+							<div>
+								<p><?=$v['name']?></p>
+								<span><?=$v['type_info']?> </span>
+								<span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+							</div>
+							<span>View</span>
+						</a>
+					</li>
+					<?php $i++;}?>
+				</ol>
+				<?php }?>
+			</div>
+
+			<div class="hRList hide">
+				<?php $i=1; foreach($downAppList as $val){ ?>
+				<ol>
+					<?php foreach($val as $k=>$v){?>
+					<li>
+						<a href="<?=$v['a_href']?>" target="_blank" title="<?=$v['name']?>">
+							<i><?=$i?></i>
+							<img src="<?=$v['icon']?>" alt="<?=$v['name']?>">
+							<div>
+								<p><?=$v['name']?></p>
+								<span><?=$v['type_info']?> </span>
+								<span><?=date('Y-m-d',$v['uptime'])?>Updated</span>
+							</div>
+							<span>View</span>
+						</a>
+					</li>
+					<?php $i++;}?>
+				</ol>
+				<?php }?>
+			</div>
+
+		</div>
+	</section>
+
+</div>
+
+<?=$this->include('Statics/Pc/public/footer.html')?>
+
+</body>
+</html>

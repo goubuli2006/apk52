@@ -1,0 +1,59 @@
+<?=$this->include('Statics/M/public/header.html')?>
+
+<main class="ztWrap">
+    <div class="blank_10"></div>
+    <section class="crumb"><a href="/" title="Home">Home</a><span>Topic Collection</span></section>
+
+    <section class="shareZt">
+        <ul class="swiper-wrapper">
+            <?php foreach($hotZtList as $key=>$val){?>
+            <li class="swiper-slide">
+                <a href="<?=$val['href']?>" title="<?=$val['name']?>">
+                    <img src="<?=$val['img']?>" alt="<?=$val['name']?>" >
+                    <div>
+                        <p><?=$val['name']?></p>
+                        <span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+                    </div>
+                </a>
+                <?php if($key==0){?><i class="hoti">HOT</i><?php }?>
+            </li>
+            <?php }?>
+        </ul>
+    </section>
+
+
+    <section class="ztList">
+        <div class="laMenu">
+            <a <?php if(empty($current_type)){ echo 'class="current"';}?> href="<?=$domain?>subclass/" title="All Collections">All Collections</a>
+            <a <?php if($current_type == 'game'){ echo 'class="current"';}?> href="<?=$domain?>subclass/game/" title="Game Topic">Game Topic</a>
+            <a <?php if($current_type == 'app'){ echo 'class="current"';}?> href="<?=$domain?>subclass/app/" title="App Topic">App Topic</a>
+        </div>
+
+        <ul>
+            <?php foreach($tagsLists as $val){?>
+            <li>
+                <a href="<?=$val['href']?>" title="<?=$val['name']?>">
+                    <div>
+                        <img src="<?=$val['img']?>" alt="<?=$val['name']?>">
+                        <span>Updated On <?=date('Y-m-d H:i:s',$val['uptime'])?></span>
+                    </div>
+                    <p><?=$val['name']?></p>
+                    <span><i><?=$val['gamecount']?></i><?php if($val['type'] ==1){echo 'games';}else{echo 'apps';}?> in total</span>
+                </a>
+            </li>
+            <?php }?>
+        </ul>
+
+        <?php if(trim($links)){?>
+        <div class="pageWrap">
+            <?=$links?>
+        </div>
+        <?php }?>
+    </section>
+
+
+</main>
+
+<?=$this->include('Statics/M/public/footer.html')?>
+</body>
+</html>

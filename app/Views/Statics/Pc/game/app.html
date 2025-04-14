@@ -1,0 +1,84 @@
+<?=$this->include('Statics/Pc/public/header.html')?>
+
+<div class="wrap softWrap">
+	<div class="blank_9"></div>
+	<section class="crumb"><a href="/" target="_blank">Home</a><span>Application Software</span></section>
+
+	<section class="gameTop">
+		<div class="carousel">
+			<div class="carCont">
+				<ul class="caroList">
+					<?php foreach($gameZtList as $key => $val) {?>
+					<li>
+						<div>
+							<?php foreach($val as $k=>$v) {?>
+							<a  href="<?=$v['href']?>" title="<?=$v['name']?>"  >
+								<img src="<?=$v['img']?>" alt="<?=$v['name']?>">
+								<p><?=$v['name']?></p>
+								<span>View</span>
+								<?php if($k == 0){?>
+								<i>NEW</i>
+								<?php }?>
+							</a>
+							<?php } ?>
+						</div>
+					</li>
+					<?php } ?>
+				</ul>
+			</div>
+			<div class="caroBtn"> <i class="ico caroPre"></i> <i class="ico caroNext"></i> </div>
+		</div>
+
+		<div class="featGame">
+			<div class="laTit"><strong>Recommended Selected Applications</strong></div>
+			<ol>
+				<?php foreach($downGameList as $key => $val) {?>
+				<li>
+					<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+						<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+						<div>
+							<p><?=$val['name']?></p>
+							<span><?=$val['type_info']?> </span>
+							<span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+						</div>
+						<span>View</span>
+					</a>
+				</li>
+				<?php } ?>
+			</ol>
+		</div>
+
+	</section>
+
+	<section class="gameSort">
+		<div class="list">
+			<a <?php if (!$current_type){echo "class='current'";}?> href="<?=$domain?>app/">Classify All</a>
+			<?php foreach($categoryList as $key=>$val){?>
+			<a <?php if ($current_type == $val['catalog']){echo "class='current'";}?> href="<?=$domain?>app/app_<?=$val['catalog']?>/"><?=$val['name']?></a>
+			<?php }?>
+		</div>
+	</section>
+
+	<section class="gsEntry">
+		<div class="list">
+			<?php foreach($list as $val){?>
+			<a href="<?=$val['a_href']?>" target="_blank" title="<?=$val['name']?>">
+				<img src="<?=$val['icon']?>" alt="<?=$val['name']?>">
+				<p><?=$val['name']?></p>
+				<span><?=date('Y-m-d',$val['uptime'])?>Updated</span>
+				<span>View</span>
+			</a>
+			<?php }?>
+		</div>
+		<div class="pagecode">
+			<?=$links?>
+		</div>
+	</section>
+</div>
+
+<?=$this->include('Statics/Pc/public/footer.html')?>
+
+
+</body>
+</html>
+
