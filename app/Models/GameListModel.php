@@ -66,7 +66,7 @@ class GameListModel extends BaseModel
 
         //截图信息
         if ($getShortImg) {
-            $gameShortImg = $gameImgModel->getTableList(['gameid' => $id, 'status' => 1], "*", 8);
+            $gameShortImg = $gameImgModel->getTableList(['gameid' => $id, 'status' => 1], "*", 8, 0, 'sort asc');
             foreach ($gameShortImg as &$val) {
                 $val['path'] = $veImageHelper->dealVeImage($val['path']);
             }
@@ -164,7 +164,7 @@ class GameListModel extends BaseModel
         $id = $gameInfo['id'];
         //截图信息
         if ($getShortImg) {
-            $gameShortImg = $gameImgModel->getTableList(['gameid' => $id, 'status' => 1], "*", 8);
+            $gameShortImg = $gameImgModel->getTableList(['gameid' => $id, 'status' => 1], "*", 8, 0, 'sort asc');
             foreach ($gameShortImg as &$val) {
                 $val['path'] = $veImageHelper->dealVeImage($val['path']);
             }
