@@ -344,4 +344,16 @@ class GameListModel extends BaseModel
 //         prx($this->db->getLastQuery());
     }
 
+    public function getGameByCommonId(array $commonIds = [], $field = ['*'])
+    {
+        if (empty($commonIds)) return [];
+
+        $result = $this->db->table('game_list')
+                    ->select($field)
+                    ->whereIn('common_id', $commonIds)
+                    ->get()
+                    ->getResultArray();
+
+        return $result;
+    }
 }

@@ -8,6 +8,8 @@ $routes->get('game/(\d+)/', 'Pc\Game::index/$1');
 $routes->get('game/game_([a-zA-Z]+)/', 'Pc\Game::index/$1');
 $routes->get('game/game_([a-zA-Z]+)/(\d+)/', 'Pc\Game::index/$1/$2');
 
+$routes->get('sitemap', 'Sitemap\Sitemap::all');
+
 //手机软件
 $routes->get('app/', 'Pc\Game::soft');
 $routes->get('app/(\d+)/', 'Pc\Game::soft/$1');

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://apk52.com/sitemap.xml
