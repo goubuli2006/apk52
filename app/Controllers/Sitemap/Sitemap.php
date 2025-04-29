@@ -33,37 +33,38 @@ class Sitemap extends Controller
 
     public function all(): ResponseInterface
     {
-        $cacheFile = WRITEPATH . 'cache/sitemap_cache.xml'; // Cache file path
-        $cacheDuration = 7200; // Cache duration in seconds (2 hours)
-    
-        // Check if cache exists and is still valid
-        if (file_exists($cacheFile) && (time() - filemtime($cacheFile)) < $cacheDuration) {
-            // Serve cached sitemap
-            return $this->respondWithCachedFile($cacheFile);
-        }
-
-        $start = microtime(true); // Start timer
-
         $allUrls = array_merge(
             $this->generateUrlsByType('game'),
             $this->generateUrlsByType('app'),
             $this->generateUrlsByType('subclass')
         );
 
-        $xml = $this->generateXml($allUrls);
+        $chunkSize = 10000;
+        $chunks = array_chunk($allUrls, $chunkSize);
+        $sitemapIndexXml = '<?xml version="1.0" encoding="UTF-8"?>';
+        $sitemapIndexXml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
-        // Save to cache and public
-        file_put_contents($cacheFile, $xml);
-        file_put_contents(FCPATH . 'sitemap.xml', $xml);
+        foreach ($chunks as $i => $chunk) {
+            $sitemapFilename = "sitemap" . ($i + 1) . ".xml";
+            $sitemapPath = FCPATH . $sitemapFilename;
 
-        $response = $this->generateXmlResponse($allUrls);
+            // generate and save each sitemap chunk
+            file_put_contents($sitemapPath, $this->generateXml($chunk));
 
-        $end = microtime(true);
-        $duration = round($end - $start, 4);
+            // add to index
+            $sitemapIndexXml .= '<sitemap>';
+            $sitemapIndexXml .= '<loc>' . base_url($sitemapFilename) . '</loc>';
+            $sitemapIndexXml .= '</sitemap>';
+        }
 
-        log_message('info', "XML generation took {$duration} seconds.");
+        $sitemapIndexXml .= '</sitemapindex>';
+        file_put_contents(FCPATH . 'sitemap_index.xml', $sitemapIndexXml);
 
-        return $response;
+        // Optionally return the index XML as response
+        return response()
+            ->setStatusCode(200)
+            ->setContentType('application/xml')
+            ->setBody($sitemapIndexXml);
     }
 
     private function generateXmlResponse(array $urls): ResponseInterface
