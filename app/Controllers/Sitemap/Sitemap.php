@@ -33,6 +33,12 @@ class Sitemap extends Controller
 
     public function all(): ResponseInterface
     {
+        $sitemapIndexPath = FCPATH . 'sitemap_index.xml';
+
+        if (file_exists($sitemapIndexPath) && filemtime($sitemapIndexPath) > strtotime('-1 hour')) {
+            return $this->respondWithCachedFile($sitemapIndexPath);
+        }
+
         $allUrls = array_merge(
             $this->generateUrlsByType('game'),
             $this->generateUrlsByType('app'),
@@ -46,21 +52,18 @@ class Sitemap extends Controller
 
         foreach ($chunks as $i => $chunk) {
             $sitemapFilename = "sitemap" . ($i + 1) . ".xml";
-            $sitemapPath = FCPATH . $sitemapFilename;
+            $sitemapFilePath = FCPATH . $sitemapFilename;
 
-            // generate and save each sitemap chunk
-            file_put_contents($sitemapPath, $this->generateXml($chunk));
+            file_put_contents($sitemapFilePath, $this->generateXml($chunk));
 
-            // add to index
             $sitemapIndexXml .= '<sitemap>';
             $sitemapIndexXml .= '<loc>' . base_url($sitemapFilename) . '</loc>';
             $sitemapIndexXml .= '</sitemap>';
         }
 
         $sitemapIndexXml .= '</sitemapindex>';
-        file_put_contents(FCPATH . 'sitemap_index.xml', $sitemapIndexXml);
+        file_put_contents($sitemapIndexPath, $sitemapIndexXml);
 
-        // Optionally return the index XML as response
         return response()
             ->setStatusCode(200)
             ->setContentType('application/xml')
