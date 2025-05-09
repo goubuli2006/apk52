@@ -35,52 +35,26 @@ class Sitemap extends Controller
     {
         $sitemapIndexPath = FCPATH . 'sitemap_index.xml';
 
-        if (file_exists($sitemapIndexPath) && filemtime($sitemapIndexPath) > strtotime('-2 days')) {
-            return $this->respondWithXml(file_get_contents($sitemapIndexPath), 'sitemap_index.xml', true);
+        if (file_exists($sitemapIndexPath) && filemtime($sitemapIndexPath) > strtotime('-1 hour')) {
+            return $this->respondWithCachedFile($sitemapIndexPath);
         }
 
-        $newUrls = array_merge(
+        $allUrls = array_merge(
             $this->generateUrlsByType('game'),
             $this->generateUrlsByType('app'),
             $this->generateUrlsByType('subclass')
         );
 
-        $existingUrls = [];
-
-        // Check existing sitemap files (e.g., sitemap1.xml, sitemap2.xml, etc.)
-        // 获取已存在的sitemap文件
-        $existingSitemaps = $this->getExistingSitemaps();
-        
-        foreach ($existingSitemaps as $sitemapFile) {
-            // Extract URLs from the existing sitemap
-            // 从已存在的sitemap中提取URL
-            $existingUrls = array_merge($existingUrls, $this->extractUrlsFromSitemap($sitemapFile));
-        }
-
-        // Filter out already existing URLs
-        // 过滤掉已存在的URL
-        $newUrls = array_diff($newUrls, $existingUrls);
-
-        if (empty($newUrls)) {
-            // No new URLs, so just serve the existing sitemap index
-            // 没有新URL，只需提供现有的sitemap索引
-            return $this->respondWithXml(file_get_contents($sitemapIndexPath), 'sitemap_index.xml', true);
-        }
-
         $chunkSize = 10000;
-        $chunks = array_chunk($newUrls, $chunkSize);
-        $existingCount = $this->countExistingSitemaps();
-
+        $chunks = array_chunk($allUrls, $chunkSize);
         $sitemapIndexXml = '<?xml version="1.0" encoding="UTF-8"?>';
         $sitemapIndexXml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
         foreach ($chunks as $i => $chunk) {
-            $sitemapFilename = "sitemap" . ($existingCount + $i + 1) . ".xml";
+            $sitemapFilename = "sitemap" . ($i + 1) . ".xml";
             $sitemapFilePath = FCPATH . $sitemapFilename;
 
-            if (!file_exists($sitemapFilePath) || $i + 1 > $existingCount) {
-                file_put_contents($sitemapFilePath, $this->generateXml($chunk, $sitemapFilename));
-            }
+            file_put_contents($sitemapFilePath, $this->generateXml($chunk));
 
             $sitemapIndexXml .= '<sitemap>';
             $sitemapIndexXml .= '<loc>' . base_url($sitemapFilename) . '</loc>';
@@ -90,47 +64,16 @@ class Sitemap extends Controller
         $sitemapIndexXml .= '</sitemapindex>';
         file_put_contents($sitemapIndexPath, $sitemapIndexXml);
 
-        // Serve the new index and redirect user to it
-        return $this->respondWithXml($sitemapIndexXml, 'sitemap_index.xml', true);
-    }
-
-    private function countExistingSitemaps(): int
-    {
-        $count = 0;
-        while (file_exists(FCPATH . 'sitemap' . ($count + 1) . '.xml')) {
-            $count++;
-        }
-        return $count;
-    }
-
-    // Method to get a list of existing sitemaps (e.g., sitemap1.xml, sitemap2.xml)
-    private function getExistingSitemaps(): array
-    {
-        // List of existing sitemaps in the directory (you may need to adjust this path)
-        return glob(FCPATH . 'sitemap*.xml');
+        return response()
+            ->setStatusCode(200)
+            ->setContentType('application/xml')
+            ->setBody($sitemapIndexXml);
     }
 
     private function generateXmlResponse(array $urls): ResponseInterface
     {
         $xml = $this->generateXml($urls);
         return $this->respondWithXml($xml);
-    }
-
-    private function extractUrlsFromSitemap(string $sitemapFile): array
-    {
-        $urls = [];
-
-        // Load the sitemap XML
-        $sitemapXml = simplexml_load_file($sitemapFile);
-        
-        if ($sitemapXml) {
-            // Extract all <loc> elements (URLs)
-            foreach ($sitemapXml->url as $url) {
-                $urls[] = (string)$url->loc; // Convert SimpleXML object to string
-            }
-        }
-
-        return $urls;
     }
 
     private function generateUrlsByType(string $type): array
@@ -202,11 +145,9 @@ class Sitemap extends Controller
         return $urls;
     }
 
-    private function generateXml(array $urls, string $filename): string
+    private function generateXml(array $urls): string
     {
-        if ($filename === 'sitemap1.xml') {
-            array_unshift($urls, base_url());
-        }
+        array_unshift($urls, base_url());
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -225,33 +166,19 @@ class Sitemap extends Controller
         return $xml;
     }
 
-    private function respondWithXml(string $xml, string $filename = 'sitemap.xml', bool $redirectToView = false): ResponseInterface
+    private function respondWithXml(string $xml): ResponseInterface
     {
-        // Add HTML redirect if needed
-        if ($redirectToView) {
-
-            $scheme = $this->request->getUri()->getScheme();
-            $host = $this->request->getUri()->getHost();
-
-            $html = <<<HTML
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta http-equiv="refresh" content="1; url={$scheme}://{$host}/{$filename}">
-            </head>
-            <body>
-                <p>Sitemap generated. <a href="{$scheme}://{$host}/{$filename}">Click here</a> if not redirected.</p>
-            </body>
-            </html>
-            HTML;
-            return response()->setBody($html)->setContentType('text/html');
-        }
-
         return response()
             ->setStatusCode(200)
             ->setContentType('application/xml')
             ->setHeader('Cache-Control', 'public, max-age=7200')
+            ->setHeader('Content-Disposition', 'attachment; filename="sitemap.xml"')
             ->setBody($xml);
     }
 
+    private function respondWithCachedFile(string $filePath): ResponseInterface
+    {
+        $cachedXml = file_get_contents($filePath);
+        return $this->respondWithXml($cachedXml);
+    }
 }
