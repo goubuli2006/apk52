@@ -37,6 +37,16 @@ class Game extends BaseController
     public function soft()
     {
         $info = [];
+
+        $gameParam = $this->request->uri->getSegment(2);
+        $gameList    = new AppListModel();
+        $gameInfo = $gameList->getGameInfoByUnionId($gameParam, true, true, true);
+
+        if (!empty($gameInfo)) {
+            $info = [];
+            $this->dealSoftDetail($gameParam, $info);
+            return view("/Statics/Pc/game/detail.html", $info); // ✅ This is the app detail page
+        }
         $this->dealSoftInfo($info);
         return view("/Statics/Pc/game/app.html", $info);
     }
@@ -167,15 +177,6 @@ class Game extends BaseController
         ];
 
         $gameParam = $this->request->uri->getSegment(2); //url -> category
-
-        $gameInfo  = $gameList->getGameInfoByUnionId($gameParam, true, true, true);
-
-        // special case, app_vault is an app, not category
-        if (!empty($gameInfo)) {
-            $info = [];
-            $this->dealSoftDetail($gameParam, $info);
-            return view("/Statics/Pc/game/detail.html", $info);
-        }
 
         if ($gameParam) {
             if (is_numeric($gameParam)) {
