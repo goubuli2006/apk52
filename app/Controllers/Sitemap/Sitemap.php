@@ -121,7 +121,7 @@ class Sitemap extends Controller
         $urls = [];
 
         // Load the sitemap XML
-        $sitemapXml = simplexml_load_file($sitemapFile);
+        $sitemapXml = \simplexml_load_file($sitemapFile);
         
         if ($sitemapXml) {
             // Extract all <loc> elements (URLs)
