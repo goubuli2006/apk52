@@ -130,6 +130,16 @@ class Game extends BaseController
         ];
 
         $gameParam = $this->request->uri->getSegment(2); //url -> category
+        //special case, app_vault is an app, not category
+        $gameInfo  = $gameList->getGameInfoByUnionId($gameParam, true, true, true);
+
+        if (!empty($gameInfo)) {
+
+            $info = [];
+            $this->dealSoftDetail($gameParam, $info);
+            return view("/Statics/M/game/detail.html", $info);
+        }
+        
         if ($gameParam) {
             if (is_numeric($gameParam)) {
                 $params['page'] = $gameParam;
