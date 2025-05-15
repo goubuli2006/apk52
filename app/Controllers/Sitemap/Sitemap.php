@@ -74,8 +74,16 @@ class Sitemap extends Controller
         $sitemapIndexXml = '<?xml version="1.0" encoding="UTF-8"?>';
         $sitemapIndexXml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
+        for ($i = 1; $i <= $existingCount; $i++) {
+            $filename = "sitemap{$i}.xml";
+            $sitemapIndexXml .= '<sitemap>';
+            $sitemapIndexXml .= '<loc>' . base_url($filename) . '</loc>';
+            $sitemapIndexXml .= '</sitemap>';
+        }
+
         foreach ($chunks as $i => $chunk) {
-            $sitemapFilename = "sitemap" . ($existingCount + $i + 1) . ".xml";
+            $sitemapNumber = $existingCount + $i + 1;
+            $sitemapFilename = "sitemap{$sitemapNumber}.xml";
             $sitemapFilePath = FCPATH . $sitemapFilename;
 
             if (!file_exists($sitemapFilePath) || $i + 1 > $existingCount) {
